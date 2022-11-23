@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import useHttp from "../api/use-http";
 import { Book } from "../interfaces/book.interface";
+
 const Books = () => {
   const [books, setBooks] = useState<Array<Book>>([]);
   const { isLoading, error, sendRequest } = useHttp();
@@ -11,10 +12,10 @@ const Books = () => {
     sendRequest({ url: "http://localhost:8800/books" }, setBooks);
   }, []);
 
-  const deleteHandler = (id:number) => {
+  const deleteHandler = (bookId: number) => {
     sendRequest(
       {
-        url: "http://localhost:8800/books/" + id,
+        url: "http://localhost:8800/books/" + bookId,
         method: "DELETE",
       },
       console.log
@@ -36,7 +37,10 @@ const Books = () => {
               <h2>{book.title}</h2>
               <p>{book.desc}</p>
               <span>{book.price}</span>
-              <button className='delete' onClick={() => deleteHandler(book.id)}>
+              <button
+                className='delete'
+                onClick={() => deleteHandler(book.id!)}
+              >
                 Delete
               </button>
               <button className='update'>

@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useRef } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import useHttp from "../api/use-http";
+import { Book } from "../interfaces/book.interface";
 const UpdateBook = () => {
   const { isLoading, error, sendRequest } = useHttp();
 
@@ -13,15 +14,15 @@ const UpdateBook = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { book } = location.state;
-  const bookId = location.pathname.split("/")[2];
+  const bookId = +location.pathname.split("/")[2];
 
   const updateBookHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    const updatedBook = {
-      title: titleRef.current?.value,
-      desc: descRef.current?.value,
-      price: priceRef.current?.value,
+    const updatedBook: Book = {
+      id: bookId,
+      title: titleRef.current?.value!,
+      desc: descRef.current?.value!,
+      price: +priceRef.current?.value!,
       cover: coverRef.current?.value,
     };
 

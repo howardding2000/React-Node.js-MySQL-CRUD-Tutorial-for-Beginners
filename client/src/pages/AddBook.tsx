@@ -1,6 +1,7 @@
 import React, { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import useHttp from "../api/use-http";
+import { Book } from "../interfaces/book.interface";
 
 const AddBook = () => {
   const { isLoading, error, sendRequest } = useHttp();
@@ -11,13 +12,14 @@ const AddBook = () => {
   const coverRef = useRef<HTMLInputElement>(null);
 
   const navigate = useNavigate();
-  const addBookHandler = (e:React.FormEvent<HTMLFormElement>) => {
+  const addBookHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const book = {
-      title: titleRef.current?.value,
-      desc: descRef.current?.value,
-      price: priceRef.current?.value,
+    const book: Book = {
+      id: undefined,
+      title: titleRef.current?.value!,
+      desc: descRef.current?.value!,
+      price: +priceRef.current?.value!,
       cover: coverRef.current?.value,
     };
 
