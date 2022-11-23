@@ -2,16 +2,16 @@ import React from "react";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import useHttp from "../api/use-http";
-
+import { Book } from "../interfaces/book.interface";
 const Books = () => {
-  const [books, setBooks] = useState([]);
+  const [books, setBooks] = useState<Array<Book>>([]);
   const { isLoading, error, sendRequest } = useHttp();
 
   useEffect(() => {
     sendRequest({ url: "http://localhost:8800/books" }, setBooks);
   }, []);
 
-  const deleteHandler = (id) => {
+  const deleteHandler = (id:number) => {
     sendRequest(
       {
         url: "http://localhost:8800/books/" + id,

@@ -1,17 +1,27 @@
 import { useState } from "react";
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
+
+interface RequestConfig {
+  url: string;
+  method?: string;
+  data?: object;
+  config?: object;
+}
 
 const useHttp = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
 
-  const sendRequest = async (requestConfig, dataHandler) => {
+  const sendRequest = async (
+    requestConfig: RequestConfig,
+    dataHandler: Function
+  ) => {
     setIsLoading(true);
     const { url, method = "GET", data = {}, config = {} } = requestConfig;
     try {
       if (url) {
-        const res = {};
-        switch (method.to) {
+        let res: AxiosResponse;
+        switch (method) {
           case "GET":
             res = await axios.get(url);
             if (res.data) dataHandler(res.data);
@@ -29,9 +39,10 @@ const useHttp = () => {
             if (res.data) dataHandler(res.data);
             break;
           default:
+            throw "METHOD_NOT_SUPPORTED!";
         }
       } else {
-        throw "URL_NULL!";
+        throw "URL_ERROR!";
       }
     } catch (err) {
       setError(err);

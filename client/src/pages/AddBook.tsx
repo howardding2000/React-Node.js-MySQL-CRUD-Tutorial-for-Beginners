@@ -5,28 +5,31 @@ import useHttp from "../api/use-http";
 const AddBook = () => {
   const { isLoading, error, sendRequest } = useHttp();
 
-  const titleRef = useRef();
-  const descRef = useRef();
-  const priceRef = useRef();
-  const coverRef = useRef();
+  const titleRef = useRef<HTMLInputElement>(null);
+  const descRef = useRef<HTMLInputElement>(null);
+  const priceRef = useRef<HTMLInputElement>(null);
+  const coverRef = useRef<HTMLInputElement>(null);
 
   const navigate = useNavigate();
-  const addBookHandler = (e) => {
+  const addBookHandler = (e:React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const book = {
-      title: titleRef.current.value,
-      desc: descRef.current.value,
-      price: priceRef.current.value,
-      cover: coverRef.current.value,
+      title: titleRef.current?.value,
+      desc: descRef.current?.value,
+      price: priceRef.current?.value,
+      cover: coverRef.current?.value,
     };
 
     console.log(`books: ${book}`);
-    sendRequest({
-      url: "http://localhost:8800/books",
-      method: "POST",
-      data: book,
-    }, console.log);
+    sendRequest(
+      {
+        url: "http://localhost:8800/books",
+        method: "POST",
+        data: book,
+      },
+      console.log
+    );
     navigate("/");
   };
 
