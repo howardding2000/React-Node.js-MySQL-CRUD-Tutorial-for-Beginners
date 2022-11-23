@@ -1,30 +1,33 @@
-import axios from "axios";
 import React, { useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import useHttp from "../api/use-http";
 
 const AddBook = () => {
+  const { isLoading, error, sendRequest } = useHttp();
+
   const titleRef = useRef();
   const descRef = useRef();
   const priceRef = useRef();
   const coverRef = useRef();
 
   const navigate = useNavigate();
-  const addBookHandler = async (e) => {
+  const addBookHandler = (e) => {
     e.preventDefault();
-    try {
-      const book = {
-        title: titleRef.current.value,
-        desc: descRef.current.value,
-        price: priceRef.current.value,
-        cover: coverRef.current.value,
-      };
 
-      console.log(`books: ${book}`);
-      await axios.post("http://localhost:8800/books", book);
-      navigate("/");
-    } catch (err) {
-      console.log(err);
-    }
+    const book = {
+      title: titleRef.current.value,
+      desc: descRef.current.value,
+      price: priceRef.current.value,
+      cover: coverRef.current.value,
+    };
+
+    console.log(`books: ${book}`);
+    sendRequest({
+      url: "http://localhost:8800/books",
+      method: "POST",
+      data: book,
+    }, console.log);
+    navigate("/");
   };
 
   return (

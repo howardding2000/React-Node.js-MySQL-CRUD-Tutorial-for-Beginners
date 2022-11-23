@@ -1,8 +1,10 @@
 import axios from "axios";
 import React, { useRef } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-
+import useHttp from "../api/use-http";
 const UpdateBook = () => {
+  const { isLoading, error, sendRequest } = useHttp();
+
   const titleRef = useRef();
   const descRef = useRef();
   const priceRef = useRef();
@@ -13,22 +15,23 @@ const UpdateBook = () => {
   const { book } = location.state;
   const bookId = location.pathname.split("/")[2];
 
-  const updateBookHandler = async (e) => {
+  const updateBookHandler = (e) => {
     e.preventDefault();
-    try {
-      const updatedBook = {
-        title: titleRef.current.value,
-        desc: descRef.current.value,
-        price: priceRef.current.value,
-        cover: coverRef.current.value,
-      };
 
-      console.log(`books: ${book}`);
-      await axios.put("http://localhost:8800/books/" + bookId, updatedBook);
-      navigate("/");
-    } catch (err) {
-      console.log(err);
-    }
+    const updatedBook = {
+      title: titleRef.current.value,
+      desc: descRef.current.value,
+      price: priceRef.current.value,
+      cover: coverRef.current.value,
+    };
+
+    console.log(`books: ${book}`);
+    sendRequest({
+      url: "http://localhost:8800/books/" + bookId,
+      method: "PUT",
+      data: updatedBook,
+    },console.log);
+    navigate("/");
   };
 
   return (
