@@ -19,7 +19,7 @@ const useHttp = () => {
       try {
         if (url) {
           let res: AxiosResponse;
-          switch (method) {
+          switch (method.toUpperCase()) {
             case "GET":
               res = await axios.get(url, config);
               if (res.data) dataHandler(res.data);
