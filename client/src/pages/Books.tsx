@@ -9,16 +9,15 @@ const Books = () => {
   const { isLoading, error, sendRequest } = useHttp();
 
   useEffect(() => {
-    sendRequest({ url: "http://localhost:8800/books" }, setBooks);
+    sendRequest({ url: "/books" }, setBooks);
   }, [sendRequest]);
 
   const deleteHandler = (bookId: number) => {
     sendRequest(
       {
-        url: "http://localhost:8800/books/" + bookId,
+        url: "/books/" + bookId,
         method: "DELETE",
-      },
-      console.log
+      }
     );
     window.location.reload();
   };

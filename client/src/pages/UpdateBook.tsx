@@ -26,14 +26,11 @@ const UpdateBook = () => {
     };
 
     console.log(`books: ${book}`);
-    sendRequest(
-      {
-        url: "http://localhost:8800/books/" + bookId,
-        method: "PUT",
-        data: updatedBook,
-      },
-      console.log
-    );
+    sendRequest({
+      url: "/books/" + bookId,
+      method: "PUT",
+      data: updatedBook,
+    });
     navigate("/");
   };
 

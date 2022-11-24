@@ -24,14 +24,11 @@ const AddBook = () => {
     };
 
     console.log(`books: ${book}`);
-    sendRequest(
-      {
-        url: "http://localhost:8800/books",
-        method: "POST",
-        data: book,
-      },
-      console.log
-    );
+    sendRequest({
+      url: "/books",
+      method: "POST",
+      data: book,
+    });
     navigate("/");
   };
 
