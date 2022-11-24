@@ -10,7 +10,7 @@ const Books = () => {
 
   useEffect(() => {
     sendRequest({ url: "http://localhost:8800/books" }, setBooks);
-  }, []);
+  }, [sendRequest]);
 
   const deleteHandler = (bookId: number) => {
     sendRequest(

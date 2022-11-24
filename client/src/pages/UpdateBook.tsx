@@ -1,10 +1,9 @@
-import axios from "axios";
 import React, { useRef } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import useHttp from "../api/use-http";
 import { Book } from "../interfaces/book.interface";
 const UpdateBook = () => {
-  const { isLoading, error, sendRequest } = useHttp();
+  const { sendRequest } = useHttp();
 
   const titleRef = useRef<HTMLInputElement>(null);
   const descRef = useRef<HTMLInputElement>(null);
