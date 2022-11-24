@@ -1,34 +1,40 @@
-import axios from "axios";
 import React, { useRef } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-
+import useHttp from "../api/use-http";
+import { Book } from "../interfaces/book.interface";
 const UpdateBook = () => {
-  const titleRef = useRef();
-  const descRef = useRef();
-  const priceRef = useRef();
-  const coverRef = useRef();
+  const { sendRequest } = useHttp();
+
+  const titleRef = useRef<HTMLInputElement>(null);
+  const descRef = useRef<HTMLInputElement>(null);
+  const priceRef = useRef<HTMLInputElement>(null);
+  const coverRef = useRef<HTMLInputElement>(null);
 
   const navigate = useNavigate();
   const location = useLocation();
   const { book } = location.state;
-  const bookId = location.pathname.split("/")[2];
+  const bookId = +location.pathname.split("/")[2];
 
-  const updateBookHandler = async (e) => {
+  const updateBookHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    try {
-      const updatedBook = {
-        title: titleRef.current.value,
-        desc: descRef.current.value,
-        price: priceRef.current.value,
-        cover: coverRef.current.value,
-      };
+    const updatedBook: Book = {
+      id: bookId,
+      title: titleRef.current?.value!,
+      desc: descRef.current?.value!,
+      price: +priceRef.current?.value!,
+      cover: coverRef.current?.value,
+    };
 
-      console.log(`books: ${book}`);
-      await axios.put("http://localhost:8800/books/" + bookId, updatedBook);
-      navigate("/");
-    } catch (err) {
-      console.log(err);
-    }
+    console.log(`books: ${book}`);
+    sendRequest(
+      {
+        url: "http://localhost:8800/books/" + bookId,
+        method: "PUT",
+        data: updatedBook,
+      },
+      console.log
+    );
+    navigate("/");
   };
 
   return (

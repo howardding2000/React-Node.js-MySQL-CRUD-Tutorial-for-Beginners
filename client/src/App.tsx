@@ -3,8 +3,9 @@ import Books from "./pages/Books";
 import AddBook from "./pages/AddBook";
 import UpdateBook from "./pages/UpdateBook";
 import "./assets/style.css";
+import React from "react";
 
-function App() {
+function App(): JSX.Element {
   return (
     <div className='App'>
       <BrowserRouter>
