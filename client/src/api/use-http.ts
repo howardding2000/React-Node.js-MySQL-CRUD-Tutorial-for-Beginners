@@ -1,5 +1,5 @@
 import { useState, useCallback } from "react";
-import axios, { AxiosResponse, AxiosRequestConfig } from "axios";
+import axios, { AxiosResponse} from "axios";
 
 const URL_BASE = "http://localhost:8800";
 interface RequestConfig {
