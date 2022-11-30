@@ -1,4 +1,4 @@
-*{
+* {
   padding: 0;
   margin: 0;
 }
@@ -12,16 +12,21 @@
   text-align: center;
 }
 
+.h1 {
+  padding: 20px 0px;
+}
 .books {
-  display: flex;
-  gap: 10px;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-auto-flow: row;
+  gap: 20px 10px;
 }
 
 .book {
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 5px;
   align-items: center;
 }
 .delete {
@@ -49,7 +54,7 @@ img {
 }
 
 .bookform {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }

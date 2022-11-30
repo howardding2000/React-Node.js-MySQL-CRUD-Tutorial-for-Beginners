@@ -24,7 +24,7 @@ const Books = () => {
 
   return (
     <div>
-      <h1>Book Shop</h1>
+      <h1 className="h1">Book Shop</h1>
       <div className='books'>
         {isLoading && "Books Loading..."}
         {!isLoading && error}
