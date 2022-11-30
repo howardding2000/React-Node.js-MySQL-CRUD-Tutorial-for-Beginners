@@ -14,6 +14,10 @@ const db = mysql.createConnection({
 // ! If there is a auth problem
 // ! Solution: ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password' , FLUSH PRIVILEGES
 
+/**
+ * Returns middleware that only parses json and only looks at requests
+ * where the Content-Type header matches the type option.
+ */
 app.use(express.json());
 
 app.use(cors());
